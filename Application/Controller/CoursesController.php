@@ -31,7 +31,7 @@ class CoursesController
         $this->params = $params;
     }
 
-    public function list()
+    public function getList()
     {
         try {
             $courses = $this->service->getCourseList();

@@ -31,7 +31,7 @@ class BranchesController
         $this->params = $params;
     }
 
-    public function list()
+    public function getList()
     {
         try {
             $branches = $this->service->getBranchList();

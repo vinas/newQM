@@ -31,7 +31,7 @@ class FieldsController
         $this->params = $params;
     }
 
-    public function list()
+    public function getList()
     {
         try {
             $fields = $this->service->getFieldList();

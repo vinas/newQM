@@ -31,7 +31,7 @@ class QuestionsController
         $this->params = $params;
     }
 
-    public function list()
+    public function getList()
     {
         try {
             $questions = $this->service->getQuestionList();
