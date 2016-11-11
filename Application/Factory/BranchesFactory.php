@@ -13,6 +13,7 @@ use SaSeed\Handlers\Mapper;
 use SaSeed\Handlers\Exceptions;
 
 use Application\Model\BranchModel;
+use Application\Model\BranchWithCountersModel;
 
 class BranchesFactory extends \SaSeed\Database\DAO {
 
@@ -36,6 +37,27 @@ class BranchesFactory extends \SaSeed\Database\DAO {
             for ($i = 0; $i < count($branches); $i++) {
                 $branches[$i] = Mapper::populate(
                         new BranchModel(),
+                        $branches[$i]
+                    );
+            }
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+        } finally {
+            return $branches;
+        }
+    }
+
+    public function listWithCounters()
+    {
+        $branches = [];
+        try {
+            $this->queryBuilder->rawSelect('b.id AS id, b.branch AS branch, COUNT(f.id) AS fields, COUNT(c.id) AS courses');
+            $this->queryBuilder->rawFrom('branches AS b LEFT JOIN fields AS f ON (b.id = f.branchId) LEFT JOIN courses AS c ON (f.id = c.fieldId)');
+            $this->queryBuilder->rawWhere('1 GROUP BY b.id ORDER BY b.branch');
+            $branches = $this->db->getRows($this->queryBuilder->getQuery());
+            for ($i = 0; $i < count($branches); $i++) {
+                $branches[$i] = Mapper::populate(
+                        new BranchWithCountersModel(),
                         $branches[$i]
                     );
             }

@@ -23,11 +23,23 @@ class BranchesService {
         $this->factory = new BranchesFactory();
     }
 
-    public function getBranchList()
+    public function getList()
     {
         $list = [];
         try {
             $list = $this->factory->listAllOrderByBranch();
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+        } finally {
+            return $list;
+        }
+    }
+
+    public function getListWithCounters()
+    {
+        $list = [];
+        try {
+            $list = $this->factory->listWithCounters();
         } catch (Exception $e) {
             Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
         } finally {

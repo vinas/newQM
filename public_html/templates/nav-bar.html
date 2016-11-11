@@ -1,0 +1,25 @@
+<div class="navigation forceCenter">
+    <input type="hidden" ng-model="navigation.orderBy" value="{{orderBy}}">
+    <input type="hidden" ng-model="navigation.nextPage" value="{{nextPage}}">
+    <input type="hidden" ng-model="navigation.prevPage" value="{{prevPage}}">
+    <input type="hidden" ng-model="navigation.totalPages" value="{{totalPages}}">
+    <input type="hidden" ng-model="navigation.totalRows" value="{{totalRows}}">
+    <input type="hidden" ng-model="navigation.limit" value="{{orderBy}}">
+    <input type="hidden" ng-model="navigation.direction" value="{{orderBy}}">
+    
+    Page&nbsp;
+    <a href="#" class="goto_page" key="{{navigation.prevPage}}"><img src="img/{{navigation.prevPage > 0 ? 'arrow-left' : 'pixel'}}.gif" width="16" height="16" border="0"></a>
+    <input size="1" type="text" ng-model="navigation.currentPage" value="{{navigation.currentPage}}">
+    <a href="#" class="goto_page" key="{{navigation.nextPage}}"><img src="img/{{navigation.nextPage > 0 ? 'arrow-right' : 'pixel'}}.gif" width="16" height="16" border="0"></a>
+    &nbsp;of&nbsp;
+    {{totalPages}}&nbsp;|
+    &nbsp;&nbsp;See
+    <select ng-model="navigation.maxRows">
+        <option value="20" selected="selected">20&nbsp;</option>
+        <option value="30">30&nbsp;</option>
+        <option value="50">50&nbsp;</option>
+        <option value="100">100&nbsp;</option>
+    </select> 
+    per page&nbsp;&nbsp;|
+    &nbsp;&nbsp;Total: <strong>{{totalRows}}</strong> records found
+</div>

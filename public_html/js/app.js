@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute'])
+var app = angular.module('questionMaster', ['ngRoute'])
 	.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
 		$locationProvider.html5Mode(false);
 		$routeProvider
@@ -8,20 +8,27 @@ var app = angular.module('app', ['ngRoute'])
 			.when('/home', {
 				templateUrl: 'templates/home.html'
 			})
-			.when('/users', {
-				templateUrl: 'templates/users-main.html',
-				controller: 'usersController'
+			.when('/branches', {
+				templateUrl: 'templates/branches.html',
+				controller: 'branchesController'
 			})
-			.when('/users/new', {
-				templateUrl: 'templates/users-form.html',
-				controller: 'usersController'
+			.when('/branches/new', {
+				templateUrl: 'templates/branches-form.html',
+				controller: 'branchesController'
 			})
-			.when('/users/edit/:id', {
-				templateUrl: 'templates/users-form.html',
-				controller: 'usersController'
-
+			.when('/fields', {
+				templateUrl: 'templates/fields.html'
+			})
+			.when('/courses', {
+				templateUrl: 'templates/courses.html'
+			})
+			.when('/questions', {
+				templateUrl: 'templates/questions.html'
+			})
+			.when('/contact', {
+				templateUrl: 'templates/contact.html'
 			})
 			.otherwise({
-				redirectTo: '/home',
+				redirectTo: '/home'
 			})
 	}]);

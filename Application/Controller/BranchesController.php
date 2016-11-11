@@ -34,7 +34,20 @@ class BranchesController
     public function getList()
     {
         try {
-            $branches = $this->service->getBranchList();
+            $branches = $this->service->getList();
+            $res = $this->responseHandler->handleCode(200);
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+            $res = $this->responseHandler->handleErrorMessage($e->getMessage());
+        } finally {
+            RestView::render($branches, $res);
+        }
+    }
+
+    public function getListWithCounters()
+    {
+        try {
+            $branches = $this->service->getListWithCounters();
             $res = $this->responseHandler->handleCode(200);
         } catch (Exception $e) {
             Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
