@@ -10,5 +10,10 @@ app.factory('BranchesFactory', function($http) {
         return $http.get('api/Branches/getListWithCounters/');
     };
 
+    this.getBranchWithFields = function(id)
+    {
+        return $http.get('api/Branches/getBranchWithFields/'+id);
+    };
+
     return this;
 });

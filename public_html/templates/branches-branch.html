@@ -1,0 +1,28 @@
+<a ng-href="#/branches"> &lt;- back to branches</a><br/>
+<br/>
+id: {{branch.id}}<br/>
+<b>Branch:</b> <input type="text" ng-model="branch.branch" /><br/>
+<br/>
+<div ng-if="branch.fields.length > 0" class="forceCenter">
+    <table border="1" cellpadding="0" cellspacing="0" class="results">
+        <tr>
+            <td><b>id</b></td>
+            <td><b>field</b></td>
+            <td><b>status</b></td>
+        </tr>
+        <tr ng-repeat="field in branch.fields">
+            <td ng-click="goEditField(field.id)" class="pointer" style="width: 15%;">{{field.id}}</td>
+            <td ng-click="goEditField(field.id)" class="pointer" style="width: 45%;">{{field.field}}</td>
+            <td ng-click="goEditField(field.id)" class="pointer" style="width: 20%;">{{(field.isActive == 1) ? 'active' : 'not active'}}</td>
+        </tr>
+    </table>
+</div>
+<div ng-if="branch.fields.length < 1" class="forceCenter">
+    No fields found for this Branch.
+</div>
+<br/>
+<a ng-href="#/fields/new/{{branch.id}}">add this Branch a new Field</a>
+<br/><br/>
+<button ng-click="save()">Save</button>
+<br/>
+

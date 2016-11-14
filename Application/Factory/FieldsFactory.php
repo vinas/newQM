@@ -46,6 +46,27 @@ class FieldsFactory extends \SaSeed\Database\DAO {
         }
     }
 
+    public function listAllByBranchIdOrderByField($branchId)
+    {
+        $fields = [];
+        try {
+            $this->queryBuilder->from($this->table);
+            $this->queryBuilder->where(['branchId', '=', $branchId]);
+            $this->queryBuilder->orderBy('field');
+            $fields = $this->db->getRows($this->queryBuilder->getQuery());
+            for ($i = 0; $i < count($fields); $i++) {
+                $fields[$i] = Mapper::populate(
+                        new FieldModel(),
+                        $fields[$i]
+                    );
+            }
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+        } finally {
+            return $fields;
+        }
+    }
+
     public function getById($id = false)
     {
         $field = new FieldModel();

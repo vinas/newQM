@@ -11,8 +11,11 @@
 namespace Application\Service;
 
 use SaSeed\Handlers\Exceptions;
+use SaSeed\Handlers\Mapper;
 
 use Application\Factory\BranchesFactory;
+use Application\Service\FieldsService;
+use Application\Model\BranchWithFieldsModel;
 
 class BranchesService {
 
@@ -60,6 +63,24 @@ class BranchesService {
         } finally {
             return $branch;
         }
+    }
+
+    public function getBranchWithFields($id = false)
+    {
+        $fieldsService = new FieldsService();
+        try {
+            if ($id)
+                $branch = Mapper::populate(new BranchWithFieldsModel(), $this->factory->getById($id));
+            if ($branch->getId() > 0) {
+                if ($branch->getId() > 0) {
+                    $branch->setFields($fieldsService->getListByBranchId($id));
+                    return $branch;
+                }
+            }
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+        }
+        return false;
     }
 
     public function delete($id)

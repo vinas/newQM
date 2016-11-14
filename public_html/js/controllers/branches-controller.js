@@ -1,4 +1,4 @@
-app.controller('branchesController', function($scope, BranchesService) {
+app.controller('branchesController', function($scope, $routeParams, $location, BranchesService) {
 
     $scope.content = 'hello';
 
@@ -18,7 +18,18 @@ app.controller('branchesController', function($scope, BranchesService) {
 
     $scope.goEditBranch = function(branchId)
     {
-        console.log('-> '+branchId);
+        $location.url('branches/edit/'+branchId);
+    };
+
+    $scope.getBranchData = function(id)
+    {
+        BranchesService.getBranchData(id)
+            .success(function(branch) {
+                $scope.branch = branch.content;
+            })
+            .error(function(response, status) {
+                console.log("Error: " + response + "\nStatus: " + status);
+            });
     };
 
     $scope.save = function() {
@@ -45,6 +56,10 @@ app.controller('branchesController', function($scope, BranchesService) {
 
     var init = function()
     {
+        if ($routeParams.id) {
+            $scope.getBranchData($routeParams.id);
+            return false;
+        }
         $scope.navigation = setNavigationModel();
         $scope.loadBranches();
     };

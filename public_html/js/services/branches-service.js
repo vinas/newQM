@@ -13,5 +13,10 @@ app.service('BranchesService', function(BranchesFactory) {
         return BranchesFactory.getListWithCounters();
     };
 
+    this.getBranchData = function(id)
+    {
+        return BranchesFactory.getBranchWithFields(id);
+    };
+
     return this;
 });

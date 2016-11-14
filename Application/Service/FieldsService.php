@@ -35,6 +35,19 @@ class FieldsService {
         }
     }
 
+    public function getListByBranchId($branchId = false)
+    {
+        $list = [];
+        try {
+            if ($branchId)
+                $list = $this->factory->listAllByBranchIdOrderByField($branchId);
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+        } finally {
+            return $list;
+        }
+    }
+
     public function getFieldById($id = false)
     {
         $field = false;

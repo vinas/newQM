@@ -75,6 +75,24 @@ class BranchesController
         }
     }
 
+    public function getBranchWithFields()
+    {
+        $branch = false;
+        try {
+            $branch = $this->service->getBranchWithFields($this->params[0]);
+            if ($branch) {
+                $res = $this->responseHandler->handleCode(200);
+            } else {
+                $res = $this->responseHandler->handleWarningMessage('No branch found.', 200);
+            }
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+            $res = $this->responseHandler->handleErrorMessage($e->getMessage());
+        } finally {
+            RestView::render($branch, $res);
+        }
+    }
+
     public function delete()
     {
         try {
