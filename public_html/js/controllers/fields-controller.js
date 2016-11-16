@@ -63,25 +63,36 @@ app.controller('fieldsController', function($scope, $routeParams, $window, Field
         return confirm('This will delete all courses and questions related to this branch.\n\nAre you sure you want to delete it?')
     };
 
+    var getAllBranches = function()
+    {
+        BranchesService.getAll()
+        .success(function(branches) {
+            $scope.branches = branches.content;
+        })
+        .error(function(res, status) {
+            ResponseService.error(600, res, status);
+        });
+    };
+
     var init = function()
     {
         if ($routeParams.action) {
-            
-            BranchesService.getAll()
-            .success(function(branches) {
-                $scope.branches = branches.content;
-            })
-            .error(function(res, status) {
-                ResponseService.error(600, res, status);
-            });
-
+            getAllBranches();
+            $scope.field.isActive = '1';
             if ($routeParams.id) {
-                $scope.getFieldData($routeParams.id);
+                if ($routeParams.action == 'edit')
+                    $scope.getFieldData($routeParams.id);
+                if ($routeParams.action == 'new') {
+                    $scope.field.branchId = $routeParams.id;
+                }
             }
             return false;
         }
         $scope.loadFields();
     };
+
+    $scope.branches = [];
+    $scope.field = {};
 
     init();
 
