@@ -35,6 +35,18 @@ class CoursesService {
         }
     }
 
+    public function getListWithAll()
+    {
+        $list = [];
+        try {
+            $list = $this->factory->listWithAllOrderByCourse();
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+        } finally {
+            return $list;
+        }
+    }
+
     public function getCourseById($id = false)
     {
         $course = false;

@@ -44,7 +44,19 @@ class CoursesController
         }
     }
 
-    public function get()
+    public function getListWithAll()
+    {
+        try {
+            $fields = $this->service->getListWithAll();
+            $res = $this->responseHandler->handleCode(200);
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+            $res = $this->responseHandler->handleErrorMessage($e->getMessage());
+        } finally {
+            RestView::render($fields, $res);
+        }
+    }
+        public function get()
     {
         $course = false;
         try {
