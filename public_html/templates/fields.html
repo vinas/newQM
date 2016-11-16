@@ -1,1 +1,19 @@
-fields
+<a ng-href="#/fields/new/"><button>new field</button></a><br/>
+<br/>
+<div class="forceCenter">
+    <table border="1" cellpadding="0" cellspacing="0" class="results">
+        <tr>
+            <td><b>id</b></td>
+            <td><b>branch</b></td>
+            <td><b>field</b></td>
+            <td><b>status</b></td>
+        </tr>
+        <tr ng-repeat="field in fields">
+            <td ng-click="goEditField(field.id)" class="pointer" style="width: 10%;">{{field.id}}</td>
+            <td ng-click="goEditField(field.id)" class="pointer" style="width: 35%;">{{field.branch}}</td>
+            <td ng-click="goEditField(field.id)" class="pointer" style="width: 35%;">{{field.field}}</td>
+            <td ng-click="goEditField(field.id)" class="pointer" style="width: 20%;">{{(field.isActive == 1) ? 'active' : 'not active'}}</td>
+        </tr>
+    </table>
+</div>
+<br/>

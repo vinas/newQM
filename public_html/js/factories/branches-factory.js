@@ -15,5 +15,19 @@ app.factory('BranchesFactory', function($http) {
         return $http.get('api/Branches/getBranchWithFields/'+id);
     };
 
+    this.save = function(branch)
+    {
+        return $http.post('api/Branches/save/', $.param(branch),
+                {
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'}
+                }
+            );
+    };
+
+    this.delete = function(id)
+    {
+        return $http.get('api/Branches/delete/'+id);
+    };
+
     return this;
 });

@@ -13,6 +13,7 @@ use SaSeed\Handlers\Mapper;
 use SaSeed\Handlers\Exceptions;
 
 use Application\Model\FieldModel;
+use Application\Model\FieldWithBranchModel;
 
 class FieldsFactory extends \SaSeed\Database\DAO {
 
@@ -36,6 +37,28 @@ class FieldsFactory extends \SaSeed\Database\DAO {
             for ($i = 0; $i < count($fields); $i++) {
                 $fields[$i] = Mapper::populate(
                         new FieldModel(),
+                        $fields[$i]
+                    );
+            }
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+        } finally {
+            return $fields;
+        }
+    }
+
+    public function listAllWithBranchOrderByField()
+    {
+        $fields = [];
+        try {
+
+            $this->queryBuilder->rawSelect('f.id AS id, f.field AS field, f.isActive AS isActive, b.branch AS branch');
+            $this->queryBuilder->rawFrom('fields AS f INNER JOIN branches AS b ON f.branchId = b.id');
+            $this->queryBuilder->orderBy('f.field');
+            $fields = $this->db->getRows($this->queryBuilder->getQuery());
+            for ($i = 0; $i < count($fields); $i++) {
+                $fields[$i] = Mapper::populate(
+                        new FieldWithBranchModel(),
                         $fields[$i]
                     );
             }

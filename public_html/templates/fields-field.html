@@ -1,0 +1,28 @@
+<a ng-href="#/fields"> &lt;- back to fields</a><br/>
+<br/>
+<div ng-if="field.id > 0">
+    id: {{field.id}}
+</div>
+<br/>
+<input type="hidden" ng-model="field.id" value="" />
+Category: 
+<select ng-model="field.branchId">
+    <option ng-repeat="branch in branches" value="{{branch.id}}">
+        {{branch.branch}}
+    </option>
+</select><br/>
+<br/>
+<b>Field:</b> <input type="text" ng-model="field.field" /><br/>
+<br/>
+<b>Status:</b>
+<select ng-model="field.isActive">
+    <option value="1">active</option>
+    <option value="0">not active</option>
+</select><br/>
+<br/>
+<button ng-click="save()">Save</button>
+<br/><br/>
+<div ng-if="field.id > 0">
+    <button ng-click="delete(field.id)">Delete</button>
+</div>
+<br/>

@@ -1,1 +1,21 @@
-questions
+<a ng-href="#/questions/new/"><button>new question</button></a><br/>
+<br/>
+<navigation></navigation>
+<br/>
+<div class="forceCenter">
+    <table border="1" cellpadding="0" cellspacing="0" class="results">
+        <tr>
+            <td><b>id</b></td>
+            <td><b>status</b></td>
+            <td><b>question</b></td>
+        </tr>
+        <tr ng-repeat="question in questions">
+            <td ng-click="goEditQuestion(question.id)" class="pointer" style="width: 15%;">{{question.id}}</td>
+            <td ng-click="goEditQuestion(question.id)" class="pointer" style="width: 45%;">{{question.status}}</td>
+            <td ng-click="goEditQuestion(question.id)" class="pointer" style="width: 15%;">{{question.question}}</td>
+        </tr>
+    </table>
+</div>
+<br/>
+<navigation></navigation>
+<br/><br/>

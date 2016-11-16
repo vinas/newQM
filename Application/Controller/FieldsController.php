@@ -44,6 +44,19 @@ class FieldsController
         }
     }
 
+    public function getListWithBranch()
+    {
+        try {
+            $fields = $this->service->getFieldListWithBranch();
+            $res = $this->responseHandler->handleCode(200);
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+            $res = $this->responseHandler->handleErrorMessage($e->getMessage());
+        } finally {
+            RestView::render($fields, $res);
+        }
+    }
+
     public function get()
     {
         $field = false;

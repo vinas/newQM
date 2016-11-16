@@ -1,6 +1,4 @@
-app.controller('branchesController', function($scope, $routeParams, $location, BranchesService) {
-
-    $scope.content = 'hello';
+app.controller('branchesController', function($scope, $routeParams, $window, BranchesService, ResponseService) {
 
     $scope.branches = {};
 
@@ -11,14 +9,18 @@ app.controller('branchesController', function($scope, $routeParams, $location, B
                 $scope.branches = branches.content;
             })
             .error(function(res, status) {
-                console.log("Error: " + res + "\nStatus: " + status);
-            }
-        );
+                ResponseService.error(600, res, status);
+            });
     };
 
     $scope.goEditBranch = function(branchId)
     {
-        $location.url('branches/edit/'+branchId);
+        $window.location.href = '#/branches/edit/'+branchId;
+    };
+
+    $scope.goEditField = function(id)
+    {
+        $window.location.href = '#/fields/edit/'+id;
     };
 
     $scope.getBranchData = function(id)
@@ -27,14 +29,47 @@ app.controller('branchesController', function($scope, $routeParams, $location, B
             .success(function(branch) {
                 $scope.branch = branch.content;
             })
-            .error(function(response, status) {
-                console.log("Error: " + response + "\nStatus: " + status);
+            .error(function(res, status) {
+                ResponseService.error(600, res, status);
             });
     };
 
-    $scope.save = function() {
-        console.log('will save branch');
+    $scope.save = function()
+    {
+        if (BranchesService.isBranchDataValid($scope.branch)) {
+            BranchesService.save($scope.branch)
+                .success(function(branch) {
+                    ResponseService.handleDefaultResponse(branch, 'save');
+                    $scope.goEditBranch(branch.content.id);
+                })
+                .error(function(res, status) {
+                    ResponseService.error(600, res, status);
+                });
+        } else {
+            ResponseService.error(602);
+        }
+    };
+
+    $scope.delete = function(id)
+    {
+        if (confirmDelete()) {
+            BranchesService.delete(id)
+                .success(function(res) {
+                    ResponseService.handleDefaultResponse(res);
+                    setTimeout(function() {
+                        $window.location.href = '#/branches/';
+                    }, showTime);
+                })
+                .error(function(res, status) {
+                    ResponseService.error(600, res, status);
+                });
+        }
     }
+
+    var confirmDelete = function()
+    {
+        return confirm('This will delete all fields, courses and questions related to this branch.\n\nAre you sure you want to delete it?')
+    };
 
     // TEMP
     var setNavigationModel = function()

@@ -26,5 +26,8 @@ id: {{branch.id}}<br/>
 </div>
 <br/><br/>
 <button ng-click="save()">Save</button>
+<br/><br/>
+<div ng-if="branch.id > 0">
+    <button ng-click="delete(branch.id)">Delete</button>
+</div>
 <br/>
-
