@@ -47,12 +47,27 @@ class CoursesService {
         }
     }
 
-    public function getCourseById($id = false)
+    public function getById($id = false)
     {
         $course = false;
         try {
             if ($id)
                 $course = $this->factory->getById($id);
+            if (isset($course->id) && $course->getId() == false)
+                $course = false;
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+        } finally {
+            return $course;
+        }
+    }
+
+    public function getWithBranchIdById($id = false)
+    {
+        $course = false;
+        try {
+            if ($id)
+                $course = $this->factory->getWithBranchIdById($id);
             if (isset($course->id) && $course->getId() == false)
                 $course = false;
         } catch (Exception $e) {

@@ -60,7 +60,7 @@ app.controller('fieldsController', function($scope, $routeParams, $window, Field
 
     var confirmDelete = function()
     {
-        return confirm('This will delete all courses and questions related to this branch.\n\nAre you sure you want to delete it?')
+        return confirm('This will delete all courses and questions related to this field.\n\nAre you sure you want to delete it?')
     };
 
     var getAllBranches = function()

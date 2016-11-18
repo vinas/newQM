@@ -1,1 +1,27 @@
-courses
+<a ng-href="#/courses/new/"><button>new course</button></a><br/>
+<br/>
+Filter: <input type="text" ng-model="q" /><br/>
+<br/>
+<div class="forceCenter">
+    <table border="1" cellpadding="0" cellspacing="0" class="results">
+        <tr>
+            <td><b>id</b></td>
+            <td><b>branch</b></td>
+            <td><b>field</b></td>
+            <td><b>course</b></td>
+            <td><b>level</b></td>
+            <td><b>questions</b></td>
+            <td><b>status</b></td>
+        </tr>
+        <tr ng-repeat="course in courses | filter: q">
+            <td ng-click="goEditCourse(course.id)" class="pointer">{{course.id}}</td>
+            <td ng-click="goEditCourse(course.id)" class="pointer">{{course.branch}}</td>
+            <td ng-click="goEditCourse(course.id)" class="pointer">{{course.field}}</td>
+            <td ng-click="goEditCourse(course.id)" class="pointer">{{course.course}}</td>
+            <td ng-click="goEditCourse(course.id)" class="pointer">{{course.level}}</td>
+            <td ng-click="goEditCourse(course.id)" class="pointer">{{course.questions}}</td>
+            <td ng-click="goEditCourse(course.id)" class="pointer">{{(course.isActive == 1) ? 'active' : 'not active'}}</td>
+        </tr>
+    </table>
+</div>
+<br/>

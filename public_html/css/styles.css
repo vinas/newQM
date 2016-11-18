@@ -9,6 +9,12 @@ textarea {
     text-align: justify;
 }
 
+td {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    font-size: 0.75rem;
+}
+
 .navbar-brand {
     font-size: 2rem;
 }

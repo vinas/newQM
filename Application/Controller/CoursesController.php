@@ -56,11 +56,30 @@ class CoursesController
             RestView::render($fields, $res);
         }
     }
-        public function get()
+
+    public function get()
     {
         $course = false;
         try {
-            $course = $this->service->getCourseById($this->params[0]);
+            $course = $this->service->getById($this->params[0]);
+            if ($course) {
+                $res = $this->responseHandler->handleCode(200);
+            } else {
+                $res = $this->responseHandler->handleWarningMessage('No course found.', 200);
+            }
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+            $res = $this->responseHandler->handleErrorMessage($e->getMessage());
+        } finally {
+            RestView::render($course, $res);
+        }
+    }
+
+    public function getWithBranchId()
+    {
+        $course = false;
+        try {
+            $course = $this->service->getWithBranchIdById($this->params[0]);
             if ($course) {
                 $res = $this->responseHandler->handleCode(200);
             } else {

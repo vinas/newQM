@@ -14,6 +14,7 @@ use SaSeed\Handlers\Exceptions;
 
 use Application\Model\CourseModel;
 use Application\Model\CourseWithAllModel;
+use Application\Model\CourseWithBranchIdModel;
 
 class CoursesFactory extends \SaSeed\Database\DAO {
 
@@ -79,6 +80,25 @@ class CoursesFactory extends \SaSeed\Database\DAO {
                     $id,
                     $this->queryBuilder->getMainTableAlias()
                 ]);
+            $course = Mapper::populate(
+                    $course,
+                    $this->db->getRow($this->queryBuilder->getQuery())
+                );
+        } catch (Exception $e) {
+            Exceptions::throwing(__CLASS__, __FUNCTION__, $e);
+        } finally {
+            return $course;
+        }
+    }
+
+    public function getWithBranchIdById($id = false)
+    {
+        $course = new CourseWithBranchIdModel();
+        try {
+            $this->queryBuilder->rawSelect('c.*, f.branchId');
+            $this->queryBuilder->rawFrom('courses AS c JOIN fields AS f ON f.id = c.fieldId');
+            $this->queryBuilder->where(['c.id', '=', $id]);
+            $this->queryBuilder->orderBy('c.course');
             $course = Mapper::populate(
                     $course,
                     $this->db->getRow($this->queryBuilder->getQuery())

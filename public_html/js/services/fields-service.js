@@ -5,6 +5,11 @@ app.service('FieldsService', function(FieldsFactory) {
         return FieldsFactory.getListWithBranch();
     };
 
+    this.getFieldsByBranch = function(branchId)
+    {
+        return FieldsFactory.getFieldsByBranchId(branchId);
+    };
+
     this.getFieldData = function(id)
     {
         return FieldsFactory.get(id);

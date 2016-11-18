@@ -5,6 +5,11 @@ app.factory('FieldsFactory', function($http) {
         return $http.get('api/Fields/getListWithBranch/');
     };
 
+    this.getFieldsByBranchId = function(branchId)
+    {
+        return $http.get('api/Fields/getFieldsByBranchId/'+branchId);
+    };
+
     this.get = function(id)
     {
         return $http.get('api/Fields/get/'+id);

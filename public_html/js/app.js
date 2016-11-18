@@ -29,7 +29,12 @@ var app = angular.module('questionMaster', ['ngRoute'])
 				controller: 'fieldsController'
 			})
 			.when('/courses', {
-				templateUrl: 'templates/courses.html'
+				templateUrl: 'templates/courses.html',
+				controller: 'coursesController'
+			})
+			.when('/courses/:action/:id', {
+				templateUrl: 'templates/courses-course.html',
+				controller: 'coursesController'
 			})
 			.when('/questions', {
 				templateUrl: 'templates/questions.html'

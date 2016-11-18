@@ -1,0 +1,49 @@
+<a ng-href="#/courses"> &lt;- back to courses</a><br/>
+<br/>
+<div ng-if="course.id > 0">
+    id: {{course.id}}
+</div>
+<br/>
+<input type="hidden" ng-model="course.id" value="" />
+Branch: 
+<select ng-model="course.branchId" ng-change="getFieldsOfBranch(course.branchId)">
+    <option ng-repeat="branch in branches" value="{{branch.id}}">
+        {{branch.branch}}
+    </option>
+</select><br/>
+<br/>
+Field: 
+<select ng-model="course.fieldId">
+    <option ng-repeat="field in fields" value="{{field.id}}">
+        {{field.field}}
+    </option>
+</select><br/>
+<br/>
+<b>Course:</b> <input type="text" ng-model="course.course" /><br/>
+<br/>
+<b>Level:</b>
+<select ng-model="course.level">
+    <option value="1">1</option>
+    <option value="1">2</option>
+    <option value="1">3</option>
+    <option value="1">4</option>
+    <option value="1">5</option>
+    <option value="1">6</option>
+    <option value="1">7</option>
+    <option value="1">8</option>
+    <option value="1">9</option>
+    <option value="1">10</option>
+</select><br/>
+<br/>
+<b>Status:</b>
+<select ng-model="course.isActive">
+    <option value="1">active</option>
+    <option value="0">not active</option>
+</select><br/>
+<br/>
+<button ng-click="save()">Save</button>
+<br/><br/>
+<div ng-if="course.id > 0">
+    <button ng-click="delete(course.id)">Delete</button>
+</div>
+<br/>
